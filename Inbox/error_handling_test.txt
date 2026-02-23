@@ -1,1 +1,0 @@
-This file is to test the error handling in the file watcher.

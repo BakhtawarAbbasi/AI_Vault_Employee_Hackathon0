@@ -1,0 +1,54 @@
+# Ignore environment variables
+.env
+.env.local
+.env.*.local
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+nul
+
+# Ignore logs
+*.log
+logs/
+
+# Ignore Playwright sessions
+playwright-sessions/
+.auth/
+
+# Ignore temporary files
+tmp/
+temp/
+*.tmp
+
+# Ignore node_modules if using Node.js MCP servers
+node_modules/
+
+# Ignore sensitive credentials
+credentials.json
+token.json
+*.key
+*.pem
+
+# Keep vault structure but ignore sensitive content
+AI_Employee_Vault/Logs/*.log
+AI_Employee_Vault/Needs_Approval/*
+!AI_Employee_Vault/Needs_Approval/.gitkeep
+
+# Ignore test outputs
+test_output/
+*.test.md
