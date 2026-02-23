@@ -8,6 +8,8 @@ import os
 import sys
 import json
 import time
+import subprocess
+from datetime import datetime
 from playwright.sync_api import sync_playwright
 
 
@@ -59,6 +61,20 @@ def post_linkedin(content):
                     # Check if post appeared (basic verification)
                     if "Create a post" not in page.content():
                         browser.close()
+
+                        # Log to social summary
+                        try:
+                            subprocess.run([
+                                sys.executable,
+                                os.path.join(os.path.dirname(__file__), 'social_summary.py'),
+                                'log',
+                                '--platform', 'linkedin',
+                                '--content', content,
+                                '--date', datetime.now().strftime('%Y-%m-%d')
+                            ], check=False, capture_output=True)
+                        except Exception:
+                            pass  # Don't fail the post if logging fails
+
                         return {"success": f"LinkedIn post created successfully: {content[:50]}..."}
                     else:
                         browser.close()
