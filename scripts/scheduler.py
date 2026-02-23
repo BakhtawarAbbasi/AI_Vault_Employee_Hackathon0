@@ -120,6 +120,14 @@ def main():
         args=["summary", "--period", "week"]
     )
 
+    # Task 5: Check for pending error retries every minute
+    scheduler.add_task(
+        name="error_recovery_check",
+        interval_seconds=60,  # 1 minute
+        command="scripts/error_recovery.py",
+        args=["check-retries"]
+    )
+
     try:
         scheduler.run()
     except KeyboardInterrupt:
