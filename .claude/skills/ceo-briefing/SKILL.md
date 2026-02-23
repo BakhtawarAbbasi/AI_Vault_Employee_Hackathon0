@@ -1,0 +1,443 @@
+# CEO Briefing Agent Skill
+
+## Overview
+
+The CEO Briefing skill automatically generates comprehensive weekly executive summaries that provide a complete overview of business activities, financial performance, and system health.
+
+## Capabilities
+
+1. **Weekly Report Generation**
+   - Automated CEO briefing every Sunday at 8 PM
+   - Comprehensive business activity summary
+   - Financial performance overview
+   - System health status
+
+2. **Activity Tracking**
+   - Tasks completed (from Done folder)
+   - Emails sent (from business.log)
+   - LinkedIn posts created
+   - Pending approvals count
+
+3. **Financial Summary**
+   - Weekly income and expenses
+   - Net profit/loss
+   - Transaction count
+   - Comparison to previous week
+
+4. **System Health**
+   - Watcher status
+   - Error count
+   - Uptime statistics
+   - Performance metrics
+
+## Usage
+
+### Automatic Execution
+
+The skill runs automatically every Sunday at 8:00 PM via the scheduler.
+
+### Manual Execution
+
+```bash
+# Generate current week's briefing
+python scripts/ceo_briefing.py generate
+
+# Generate briefing for specific date range
+python scripts/ceo_briefing.py generate --start 2026-02-17 --end 2026-02-23
+
+# View latest briefing
+python scripts/ceo_briefing.py view
+
+# Email briefing to yourself
+python scripts/ceo_briefing.py email --to your-email@example.com
+```
+
+### Trigger Phrases
+
+When the user says any of these, invoke this skill:
+
+- "Generate CEO briefing"
+- "Show me the weekly report"
+- "What happened this week?"
+- "Give me the executive summary"
+- "Show business performance"
+- "Generate weekly summary"
+- "CEO report"
+- "Weekly briefing"
+
+## Report Structure
+
+### CEO_Weekly.md Format
+
+```markdown
+# CEO Weekly Briefing
+**Week of February 17-23, 2026**
+
+Generated: 2026-02-23 20:00:00
+
+---
+
+## Executive Summary
+
+Strong week with 8 tasks completed and positive cash flow. System operating normally with no critical issues.
+
+---
+
+## Key Metrics
+
+| Metric | This Week | Last Week | Change |
+|--------|-----------|-----------|--------|
+| Tasks Completed | 8 | 6 | +33% |
+| Emails Sent | 12 | 10 | +20% |
+| LinkedIn Posts | 3 | 2 | +50% |
+| Net Profit | $2,410 | $1,850 | +30% |
+
+---
+
+## Tasks Completed (8)
+
+### High Priority
+- [x] Client A - Project Alpha milestone 2 delivered
+- [x] Client B - Website redesign completed
+- [x] Q1 financial planning completed
+
+### Medium Priority
+- [x] Weekly social media content scheduled
+- [x] Team meeting notes documented
+- [x] Invoice #1234 sent to Client C
+
+### Low Priority
+- [x] Office supplies ordered
+- [x] Software licenses renewed
+
+---
+
+## Communications
+
+### Emails Sent (12)
+- Client communications: 7
+- Internal updates: 3
+- Vendor correspondence: 2
+
+### LinkedIn Activity (3 posts)
+- Product launch announcement (45 likes, 12 comments)
+- Industry insights article (32 likes, 8 comments)
+- Team achievement highlight (28 likes, 5 comments)
+
+---
+
+## Financial Performance
+
+### Income
+- **Total Income**: $2,500.00
+- **Sources**: Client payments (2), Consulting fees (1)
+- **Average Transaction**: $833.33
+
+### Expenses
+- **Total Expenses**: $89.99
+- **Categories**: Office supplies ($89.99)
+- **Average Transaction**: $89.99
+
+### Summary
+- **Net Profit**: $2,410.01
+- **Profit Margin**: 96.4%
+- **Transaction Count**: 3
+
+---
+
+## Pending Items
+
+### Awaiting Approval (2)
+- Payment to Vendor X - $1,500 (requires approval)
+- LinkedIn post about new service offering
+
+### In Progress (3)
+- Client D proposal preparation
+- Website SEO optimization
+- Q2 planning document
+
+---
+
+## System Health
+
+### Watchers Status
+- ✓ File System Watcher: Running (uptime: 7 days)
+- ✓ LinkedIn Watcher: Running (uptime: 7 days)
+- ✓ Scheduler: Running (uptime: 7 days)
+
+### Performance
+- Total operations: 156
+- Successful: 154 (98.7%)
+- Errors: 2 (1.3%)
+- Average response time: 1.2s
+
+### Recent Errors
+- 2026-02-21: LinkedIn timeout (resolved)
+- 2026-02-19: Email rate limit (resolved)
+
+---
+
+## Recommendations
+
+### Immediate Actions
+1. Review and approve pending payment to Vendor X
+2. Approve LinkedIn post about new service offering
+3. Follow up with Client D on proposal
+
+### Strategic Observations
+- Strong week with 30% increase in net profit
+- LinkedIn engagement trending upward
+- Consider increasing content frequency
+- System performance excellent with 98.7% success rate
+
+### Upcoming Deadlines
+- Client E project delivery: Feb 28 (5 days)
+- Q1 tax preparation: Mar 15 (20 days)
+- Annual software license renewal: Mar 1 (6 days)
+
+---
+
+## Week Ahead Preview
+
+### Scheduled Tasks (5)
+- Client E final deliverables
+- Monthly accounting reconciliation
+- Team performance reviews
+- Marketing campaign planning
+- Infrastructure maintenance
+
+### Expected Income
+- Client E final payment: $3,000
+- Consulting retainer: $1,500
+- **Total Expected**: $4,500
+
+---
+
+*Generated by AI Employee CEO Briefing System*
+*Next briefing: March 2, 2026*
+```
+
+## Workflow
+
+### 1. Data Collection
+
+The skill collects data from multiple sources:
+
+- **Tasks**: Scans `AI_Employee_Vault/Done/` for completed tasks
+- **Emails**: Parses `AI_Employee_Vault/Logs/business.log` for email activity
+- **LinkedIn**: Extracts LinkedIn posts from business.log
+- **Financial**: Reads `AI_Employee_Vault/Accounting/Current_Month.md`
+- **Approvals**: Counts files in `AI_Employee_Vault/Needs_Approval/`
+- **System**: Checks watcher status and error logs
+
+### 2. Analysis
+
+- Calculate week-over-week changes
+- Identify trends and patterns
+- Generate recommendations
+- Assess system health
+
+### 3. Report Generation
+
+- Create structured markdown report
+- Save to `AI_Employee_Vault/Reports/CEO_Weekly.md`
+- Archive previous reports to `AI_Employee_Vault/Reports/Archive/`
+- Log activity to business.log
+
+### 4. Distribution (Optional)
+
+- Email report to configured recipients
+- Post summary to internal channels
+- Trigger notifications
+
+## Scheduler Integration
+
+Add to `scripts/scheduler.py`:
+
+```python
+import schedule
+import subprocess
+
+# Generate CEO briefing every Sunday at 8 PM
+schedule.every().sunday.at("20:00").do(
+    lambda: subprocess.run([
+        "python", "scripts/ceo_briefing.py", "generate"
+    ])
+)
+
+# Optional: Send email notification
+schedule.every().sunday.at("20:05").do(
+    lambda: subprocess.run([
+        "python", "scripts/ceo_briefing.py", "email",
+        "--to", os.getenv("CEO_EMAIL", "your-email@example.com")
+    ])
+)
+```
+
+## Configuration
+
+Set these environment variables:
+
+```bash
+# Email recipient for briefing
+export CEO_EMAIL="your-email@example.com"
+
+# Week start day (0=Sunday, 1=Monday)
+export CEO_BRIEFING_WEEK_START=1
+
+# Include detailed task list (true/false)
+export CEO_BRIEFING_DETAILED=true
+
+# Archive old reports (true/false)
+export CEO_BRIEFING_ARCHIVE=true
+```
+
+## Integration Points
+
+### With Other Skills
+
+- **accounting-manager**: Financial data and summaries
+- **vault-file-manager**: Task completion tracking
+- **gmail-send**: Email distribution
+- **human-approval**: Pending approvals count
+
+### With MCP Server
+
+- **log_activity**: Activity tracking
+- **send_email**: Report distribution
+
+## Examples
+
+### Example 1: Generate Current Week Briefing
+
+```bash
+python scripts/ceo_briefing.py generate
+```
+
+**Output:**
+```json
+{
+  "success": true,
+  "message": "CEO briefing generated successfully",
+  "report_file": "AI_Employee_Vault/Reports/CEO_Weekly.md",
+  "week": "Feb 17-23, 2026",
+  "summary": {
+    "tasks_completed": 8,
+    "emails_sent": 12,
+    "linkedin_posts": 3,
+    "net_profit": 2410.01,
+    "pending_approvals": 2
+  }
+}
+```
+
+### Example 2: Email Briefing
+
+```bash
+python scripts/ceo_briefing.py email --to ceo@company.com
+```
+
+**Output:**
+```json
+{
+  "success": true,
+  "message": "CEO briefing emailed successfully",
+  "recipient": "ceo@company.com",
+  "subject": "CEO Weekly Briefing - Feb 17-23, 2026"
+}
+```
+
+### Example 3: View Latest Briefing
+
+```bash
+python scripts/ceo_briefing.py view
+```
+
+Displays the latest briefing in the terminal.
+
+## Metrics Tracked
+
+### Business Metrics
+- Tasks completed (by priority)
+- Emails sent (by category)
+- LinkedIn posts (with engagement)
+- Income and expenses
+- Net profit/loss
+- Pending approvals
+
+### System Metrics
+- Watcher uptime
+- Operation success rate
+- Error count and types
+- Average response time
+- System availability
+
+### Trend Analysis
+- Week-over-week changes
+- Growth percentages
+- Performance trends
+- Financial trends
+
+## Error Handling
+
+The skill handles common errors gracefully:
+
+- Missing data files (creates empty sections)
+- Corrupted log files (skips and logs error)
+- Email sending failures (saves report locally)
+- Date parsing errors (uses current week)
+
+All errors are logged to business.log with details.
+
+## Best Practices
+
+1. **Review Weekly** - Check briefing every Monday morning
+2. **Act on Recommendations** - Follow up on suggested actions
+3. **Track Trends** - Monitor week-over-week changes
+4. **Archive Reports** - Keep historical records for analysis
+5. **Customize Metrics** - Adjust tracked metrics to your needs
+
+## Troubleshooting
+
+### Issue: No data in report
+
+**Solution:** Ensure all source files exist and contain data
+```bash
+ls -la AI_Employee_Vault/Done/
+ls -la AI_Employee_Vault/Accounting/
+tail AI_Employee_Vault/Logs/business.log
+```
+
+### Issue: Email not sending
+
+**Solution:** Check email configuration
+```bash
+echo $EMAIL_ADDRESS
+echo $CEO_EMAIL
+python scripts/send_email.py test@example.com "Test" "Body"
+```
+
+### Issue: Wrong week range
+
+**Solution:** Set correct week start day
+```bash
+export CEO_BRIEFING_WEEK_START=1  # Monday
+```
+
+## Future Enhancements
+
+- AI-powered insights and predictions
+- Comparison to business goals
+- Competitor analysis integration
+- Custom metric definitions
+- Interactive dashboard
+- Mobile app notifications
+- Voice briefing generation
+
+---
+
+**Skill Type:** Agent Skill (Automated)
+**Dependencies:** Python 3.13+, scripts/ceo_briefing.py, scripts/accounting_manager.py
+**Schedule:** Every Sunday at 8:00 PM
+**Security Level:** Medium (business data)
+**Approval Required:** No (read-only reporting)

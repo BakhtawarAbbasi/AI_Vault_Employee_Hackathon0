@@ -103,6 +103,23 @@ def main():
         command="scripts/create_task_plan.py"
     )
 
+    # Task 3: Generate CEO briefing every Sunday at 8 PM (weekly)
+    # Check every hour if it's Sunday 8 PM
+    scheduler.add_task(
+        name="ceo_briefing",
+        interval_seconds=3600,  # Check every hour
+        command="scripts/ceo_briefing.py",
+        args=["generate"]
+    )
+
+    # Task 4: Generate weekly accounting summary every Sunday
+    scheduler.add_task(
+        name="weekly_accounting_summary",
+        interval_seconds=604800,  # 7 days (weekly)
+        command="scripts/accounting_manager.py",
+        args=["summary", "--period", "week"]
+    )
+
     try:
         scheduler.run()
     except KeyboardInterrupt:

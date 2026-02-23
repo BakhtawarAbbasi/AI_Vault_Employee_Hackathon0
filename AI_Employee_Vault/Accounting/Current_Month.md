@@ -15,6 +15,13 @@
 - **Net Profit**: $160.01
 - **Transaction Count**: 2
 
+### Week 4: Feb 17-23, 2026
+
+- **Total Income**: $250.00
+- **Total Expenses**: $89.99
+- **Net Profit**: $160.01
+- **Transaction Count**: 2
+
 
 ## Monthly Totals
 
