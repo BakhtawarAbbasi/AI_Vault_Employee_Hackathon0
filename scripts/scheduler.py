@@ -128,6 +128,14 @@ def main():
         args=["check-retries"]
     )
 
+    # Task 6: Ralph Wiggum autonomous loop - check every 30 seconds
+    scheduler.add_task(
+        name="ralph_wiggum_loop",
+        interval_seconds=30,  # 30 seconds
+        command="scripts/ralph_wiggum.py",
+        args=["process-all"]
+    )
+
     try:
         scheduler.run()
     except KeyboardInterrupt:
