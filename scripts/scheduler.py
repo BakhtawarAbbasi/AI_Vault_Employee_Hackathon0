@@ -136,6 +136,22 @@ def main():
         args=["process-all"]
     )
 
+    # Task 7: Process personal inbox every hour
+    scheduler.add_task(
+        name="process_personal_inbox",
+        interval_seconds=3600,  # 1 hour
+        command="scripts/personal_tasks.py",
+        args=["process-inbox"]
+    )
+
+    # Task 8: Generate social media summary weekly
+    scheduler.add_task(
+        name="social_summary_weekly",
+        interval_seconds=604800,  # 7 days (weekly)
+        command="scripts/social_summary.py",
+        args=["summary", "--period", "week"]
+    )
+
     try:
         scheduler.run()
     except KeyboardInterrupt:

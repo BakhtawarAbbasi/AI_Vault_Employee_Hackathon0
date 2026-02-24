@@ -1,0 +1,77 @@
+{
+  "name": "odoo-mcp",
+  "version": "1.0.0",
+  "description": "MCP Server for Odoo Community Edition integration via JSON-RPC",
+  "main": "server.py",
+  "actions": [
+    {
+      "name": "create_invoice",
+      "description": "Create a new invoice in Odoo",
+      "parameters": {
+        "partner_name": {
+          "type": "string",
+          "description": "Customer or vendor name",
+          "required": true
+        },
+        "amount": {
+          "type": "number",
+          "description": "Invoice amount",
+          "required": true
+        },
+        "description": {
+          "type": "string",
+          "description": "Invoice line description",
+          "required": true
+        },
+        "invoice_type": {
+          "type": "string",
+          "description": "Invoice type: 'out_invoice' (customer) or 'in_invoice' (vendor)",
+          "default": "out_invoice"
+        }
+      }
+    },
+    {
+      "name": "list_invoices",
+      "description": "List invoices from Odoo",
+      "parameters": {
+        "limit": {
+          "type": "number",
+          "description": "Maximum number of invoices to return",
+          "default": 10
+        },
+        "invoice_type": {
+          "type": "string",
+          "description": "Filter by type: 'out_invoice', 'in_invoice', or null for all",
+          "required": false
+        }
+      }
+    },
+    {
+      "name": "record_payment",
+      "description": "Record a payment for an invoice",
+      "parameters": {
+        "invoice_id": {
+          "type": "number",
+          "description": "Odoo invoice ID",
+          "required": true
+        },
+        "amount": {
+          "type": "number",
+          "description": "Payment amount",
+          "required": true
+        },
+        "payment_date": {
+          "type": "string",
+          "description": "Payment date (YYYY-MM-DD), defaults to today",
+          "required": false
+        }
+      }
+    }
+  ],
+  "environment": {
+    "ODOO_URL": "http://localhost:8069",
+    "ODOO_DB": "odoo",
+    "ODOO_USERNAME": "admin",
+    "ODOO_PASSWORD": "your-password"
+  }
+}
