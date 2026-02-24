@@ -1,0 +1,124 @@
+{
+  "name": "calendar-mcp",
+  "version": "1.0.0",
+  "description": "MCP Server for Calendar management",
+  "main": "server.py",
+  "actions": [
+    {
+      "name": "create_event",
+      "description": "Create a new calendar event",
+      "parameters": {
+        "title": {
+          "type": "string",
+          "description": "Event title",
+          "required": true
+        },
+        "start_time": {
+          "type": "string",
+          "description": "Start time (ISO format: YYYY-MM-DDTHH:MM:SS)",
+          "required": true
+        },
+        "end_time": {
+          "type": "string",
+          "description": "End time (ISO format: YYYY-MM-DDTHH:MM:SS)",
+          "required": true
+        },
+        "description": {
+          "type": "string",
+          "description": "Event description",
+          "required": false
+        },
+        "location": {
+          "type": "string",
+          "description": "Event location",
+          "required": false
+        },
+        "attendees": {
+          "type": "array",
+          "description": "List of attendee emails",
+          "required": false
+        }
+      }
+    },
+    {
+      "name": "list_events",
+      "description": "List calendar events",
+      "parameters": {
+        "start_date": {
+          "type": "string",
+          "description": "Filter events after this date (ISO format)",
+          "required": false
+        },
+        "end_date": {
+          "type": "string",
+          "description": "Filter events before this date (ISO format)",
+          "required": false
+        },
+        "limit": {
+          "type": "number",
+          "description": "Maximum number of events to return",
+          "default": 10
+        }
+      }
+    },
+    {
+      "name": "update_event",
+      "description": "Update a calendar event",
+      "parameters": {
+        "event_id": {
+          "type": "string",
+          "description": "Event ID to update",
+          "required": true
+        },
+        "title": {
+          "type": "string",
+          "description": "New event title",
+          "required": false
+        },
+        "start_time": {
+          "type": "string",
+          "description": "New start time",
+          "required": false
+        },
+        "end_time": {
+          "type": "string",
+          "description": "New end time",
+          "required": false
+        },
+        "description": {
+          "type": "string",
+          "description": "New description",
+          "required": false
+        },
+        "location": {
+          "type": "string",
+          "description": "New location",
+          "required": false
+        }
+      }
+    },
+    {
+      "name": "delete_event",
+      "description": "Delete a calendar event",
+      "parameters": {
+        "event_id": {
+          "type": "string",
+          "description": "Event ID to delete",
+          "required": true
+        }
+      }
+    },
+    {
+      "name": "get_upcoming",
+      "description": "Get upcoming events for the next N days",
+      "parameters": {
+        "days": {
+          "type": "number",
+          "description": "Number of days to look ahead",
+          "default": 7
+        }
+      }
+    }
+  ],
+  "environment": {}
+}

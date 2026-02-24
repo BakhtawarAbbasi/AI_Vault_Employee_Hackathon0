@@ -152,6 +152,22 @@ def main():
         args=["summary", "--period", "week"]
     )
 
+    # Task 9: Process cross-domain tasks every hour
+    scheduler.add_task(
+        name="process_cross_domain",
+        interval_seconds=3600,  # 1 hour
+        command="scripts/cross_domain_router.py",
+        args=["process-cross-domain"]
+    )
+
+    # Task 10: Generate unified report daily
+    scheduler.add_task(
+        name="unified_report_daily",
+        interval_seconds=86400,  # 1 day
+        command="scripts/cross_domain_router.py",
+        args=["unified-report"]
+    )
+
     try:
         scheduler.run()
     except KeyboardInterrupt:
